@@ -158,23 +158,85 @@ export function Home({ onMaterialGenerated }: HomeProps) {
         </section>
       )}
 
-      {/* Dataset Sources */}
+      {/* Resources Section */}
       {!isLoading && (
         <section className="py-16 px-4 border-t border-border/30">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2 }}
+              className="text-center"
             >
-              <p className="text-sm text-muted-foreground mb-4">Powered by leading datasets</p>
-              <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground/70">
-                <span className="px-3 py-1 rounded-full bg-secondary/50">CodeXGLUE</span>
-                <span className="px-3 py-1 rounded-full bg-secondary/50">The Stack</span>
-                <span className="px-3 py-1 rounded-full bg-secondary/50">Wikipedia</span>
-                <span className="px-3 py-1 rounded-full bg-secondary/50">ELI5</span>
-                <span className="px-3 py-1 rounded-full bg-secondary/50">OpenBookQA</span>
-                <span className="px-3 py-1 rounded-full bg-secondary/50">BoolQ</span>
+              {/* Built with TensorFlow.js */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-8">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path className="text-accent" d="M1.292 5.856L11.54 0v24l-4.095-2.378V7.603l-6.168 3.564.015-5.31zm21.416 5.393l-6.168-3.564v14.02L12.46 24V0l10.248 5.856v5.393z"/>
+                </svg>
+                <span className="text-sm text-accent font-semibold">Built with Deep Learning & TensorFlow.js</span>
+              </div>
+
+              <h3 className="text-xl font-bold text-foreground mb-6">Resources</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {/* Datasets */}
+                <a 
+                  href="https://huggingface.co/datasets" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="glass-card-hover rounded-xl p-5 text-left group"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <BookOpen className="w-4 h-4 text-primary" />
+                    </div>
+                    <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">Datasets</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground">CodeXGLUE, The Stack, Wikipedia, ELI5, OpenBookQA, BoolQ</p>
+                </a>
+
+                {/* API Docs */}
+                <a 
+                  href="https://www.tensorflow.org/js/guide" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="glass-card-hover rounded-xl p-5 text-left group"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="p-2 rounded-lg bg-accent/10">
+                      <Code2 className="w-4 h-4 text-accent" />
+                    </div>
+                    <h4 className="font-semibold text-foreground group-hover:text-accent transition-colors">API Docs</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground">TensorFlow.js documentation & guides for in-browser ML</p>
+                </a>
+
+                {/* Help */}
+                <a 
+                  href="https://github.com/tensorflow/tfjs" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="glass-card-hover rounded-xl p-5 text-left group"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <HelpCircle className="w-4 h-4 text-primary" />
+                    </div>
+                    <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">Help</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground">GitHub repository, issues, community support</p>
+                </a>
+              </div>
+
+              {/* Dataset badges */}
+              <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
+                <span className="px-3 py-1.5 rounded-full bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors cursor-default">CodeXGLUE</span>
+                <span className="px-3 py-1.5 rounded-full bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors cursor-default">The Stack</span>
+                <span className="px-3 py-1.5 rounded-full bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors cursor-default">Wikipedia</span>
+                <span className="px-3 py-1.5 rounded-full bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors cursor-default">ELI5</span>
+                <span className="px-3 py-1.5 rounded-full bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors cursor-default">OpenBookQA</span>
+                <span className="px-3 py-1.5 rounded-full bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors cursor-default">BoolQ</span>
+                <span className="px-3 py-1.5 rounded-full bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors cursor-default">MCTest</span>
               </div>
             </motion.div>
           </div>

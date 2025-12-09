@@ -111,34 +111,36 @@ export function TopicInput({ onSubmit, isLoading }: TopicInputProps) {
         <AnimatePresence>
           {showSuggestions && filteredSuggestions.length > 0 && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="absolute w-full mt-2 glass-card rounded-xl border border-border/50 overflow-hidden z-50"
+              initial={{ opacity: 0, y: 8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.98 }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
+              className="absolute w-full mt-2 bg-card/95 backdrop-blur-xl rounded-xl border border-border shadow-2xl shadow-primary/10 overflow-hidden z-[100]"
+              style={{ pointerEvents: 'auto' }}
             >
-              <div className="p-2">
-                <p className="text-xs text-muted-foreground px-3 py-1.5 uppercase tracking-wider">
+              <div className="p-2 max-h-[320px] overflow-y-auto">
+                <p className="text-xs text-muted-foreground px-3 py-2 uppercase tracking-wider font-semibold">
                   Suggested Topics
                 </p>
-                <div className="space-y-1">
+                <div className="space-y-0.5">
                   {filteredSuggestions.map((suggestion, index) => (
-                    <motion.button
+                    <button
                       key={suggestion.topic}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
                       type="button"
-                      onClick={() => handleSuggestionClick(suggestion)}
-                      className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-secondary/50 transition-colors group"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleSuggestionClick(suggestion);
+                      }}
+                      className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-primary/10 active:bg-primary/20 transition-all duration-150 group cursor-pointer"
                     >
-                      <span className="text-foreground group-hover:text-primary transition-colors">
+                      <span className="text-foreground group-hover:text-primary transition-colors font-medium">
                         {suggestion.topic}
                       </span>
-                      <span className="text-xs text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
+                      <span className="text-xs text-muted-foreground bg-secondary px-2.5 py-1 rounded-full">
                         {suggestion.category}
                       </span>
-                    </motion.button>
+                    </button>
                   ))}
                 </div>
               </div>

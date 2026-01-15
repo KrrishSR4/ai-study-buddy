@@ -18,7 +18,7 @@ const TOPIC_SUGGESTIONS: TopicSuggestion[] = [
   { topic: 'Hash Tables', category: 'Data Structures' },
   { topic: 'Dynamic Programming', category: 'Algorithms' },
   { topic: 'REST APIs', category: 'Web Development' },
-  { topic: 'Machine Learning Basics', category: 'AI/ML' },
+  { topic: 'Machine Learning Basics', category: 'ML' },
   { topic: 'SQL Joins', category: 'Databases' },
   { topic: 'Recursion', category: 'Fundamentals' },
   { topic: 'Object-Oriented Programming', category: 'Paradigms' },
@@ -69,23 +69,23 @@ export function TopicInput({ onSubmit, isLoading }: TopicInputProps) {
   };
 
   return (
-    <div ref={containerRef} className="w-full max-w-2xl mx-auto">
-      <form onSubmit={handleSubmit} className="relative">
+    <div ref={containerRef} className="w-full max-w-2xl mx-auto relative px-4 sm:px-0">
+      <form onSubmit={handleSubmit}>
         <div className="relative group">
           <div className="absolute inset-0 bg-primary/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
           <div className="relative glass-card rounded-xl p-1.5 border border-border/50 group-hover:border-primary/30 transition-colors duration-300">
             <div className="flex items-center gap-2">
-              <div className="flex items-center flex-1 gap-3 px-4">
-                <Search className="w-5 h-5 text-muted-foreground" />
+              <div className="flex items-center flex-1 gap-2 sm:gap-3 px-3 sm:px-4">
+                <Search className="w-5 h-5 text-muted-foreground flex-shrink-0" />
                 <Input
                   ref={inputRef}
                   type="text"
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                   onFocus={() => setShowSuggestions(true)}
-                  placeholder="Enter a topic (e.g., Binary Search Trees, QuickSort...)"
-                  className="flex-1 border-0 bg-transparent text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 text-base"
+                  placeholder="Enter a topic (e.g., Binary Search Trees...)"
+                  className="flex-1 border-0 bg-transparent text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 text-sm sm:text-base"
                   disabled={isLoading}
                 />
               </div>
@@ -93,61 +93,60 @@ export function TopicInput({ onSubmit, isLoading }: TopicInputProps) {
               <Button
                 type="submit"
                 disabled={!topic.trim() || isLoading}
-                className="btn-glow bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2.5 rounded-lg font-medium transition-all duration-300 disabled:opacity-50"
+                className="btn-glow bg-primary hover:bg-primary/90 text-primary-foreground px-4 sm:px-6 py-2.5 rounded-lg font-medium transition-all duration-300 disabled:opacity-50"
               >
                 {isLoading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
                   <>
-                    <Sparkles className="w-4 h-4 mr-2" />
-                    Generate
+                    <Sparkles className="w-4 h-4 sm:mr-2" />
+                    <span className="hidden sm:inline">Generate</span>
                   </>
                 )}
               </Button>
             </div>
           </div>
         </div>
-
-        <AnimatePresence>
-          {showSuggestions && filteredSuggestions.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 8, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 8, scale: 0.98 }}
-              transition={{ duration: 0.15, ease: 'easeOut' }}
-              className="absolute w-full mt-2 bg-card/95 backdrop-blur-xl rounded-xl border border-border shadow-2xl shadow-primary/10 overflow-hidden z-[100]"
-              style={{ pointerEvents: 'auto' }}
-            >
-              <div className="p-2 max-h-[320px] overflow-y-auto">
-                <p className="text-xs text-muted-foreground px-3 py-2 uppercase tracking-wider font-semibold">
-                  Suggested Topics
-                </p>
-                <div className="space-y-0.5">
-                  {filteredSuggestions.map((suggestion, index) => (
-                    <button
-                      key={suggestion.topic}
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        handleSuggestionClick(suggestion);
-                      }}
-                      className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-primary/10 active:bg-primary/20 transition-all duration-150 group cursor-pointer"
-                    >
-                      <span className="text-foreground group-hover:text-primary transition-colors font-medium">
-                        {suggestion.topic}
-                      </span>
-                      <span className="text-xs text-muted-foreground bg-secondary px-2.5 py-1 rounded-full">
-                        {suggestion.category}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </form>
+
+      <AnimatePresence>
+        {showSuggestions && filteredSuggestions.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.98 }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            className="absolute left-0 right-0 mx-4 sm:mx-0 mt-2 bg-card backdrop-blur-xl rounded-xl border border-border shadow-2xl overflow-hidden z-[100]"
+          >
+            <div className="p-2 max-h-[280px] sm:max-h-[320px] overflow-y-auto">
+              <p className="text-xs text-muted-foreground px-3 py-2 uppercase tracking-wider font-semibold">
+                Suggested Topics
+              </p>
+              <div className="space-y-0.5">
+                {filteredSuggestions.map((suggestion) => (
+                  <button
+                    key={suggestion.topic}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleSuggestionClick(suggestion);
+                    }}
+                    className="w-full flex items-center justify-between px-3 py-2.5 sm:py-3 rounded-lg hover:bg-primary/10 active:bg-primary/20 transition-all duration-150 group cursor-pointer"
+                  >
+                    <span className="text-foreground group-hover:text-primary transition-colors font-medium text-sm sm:text-base">
+                      {suggestion.topic}
+                    </span>
+                    <span className="text-xs text-muted-foreground bg-secondary px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                      {suggestion.category}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

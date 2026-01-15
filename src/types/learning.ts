@@ -30,4 +30,4 @@ export interface TopicSuggestion {
   category: string;
 }
 
-export type TabType = 'notes' | 'explanation' | 'code' | 'examples' | 'quiz';
+export type TabType = 'notes' | 'explanation' | 'examples' | 'quiz';

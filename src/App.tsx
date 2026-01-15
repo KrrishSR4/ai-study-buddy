@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,6 +16,14 @@ const App = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [generatedMaterial, setGeneratedMaterial] = useState<LearningMaterial | null>(null);
   const [currentTopic, setCurrentTopic] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleMaterialGenerated = useCallback((material: LearningMaterial, topic: string) => {
     setGeneratedMaterial(material);
@@ -36,7 +44,7 @@ const App = () => {
             
             <main
               className="flex-1 transition-all duration-300"
-              style={{ marginLeft: sidebarCollapsed ? 72 : 256 }}
+              style={{ marginLeft: isMobile ? 0 : (sidebarCollapsed ? 72 : 256) }}
             >
               <Routes>
                 <Route
